@@ -3,7 +3,7 @@ import { useState } from "react"
 import { FaSearch} from "react-icons/fa"
 
 export default function Header(){
-    const [categories,setCategories] =useState('')
+    const [categories,setCategories] =useState([])
     useEffect(()=>{
         fetch('https://demo-api-one.vercel.app/api/categories')
         .then((res)=> res.json())
@@ -32,21 +32,14 @@ export default function Header(){
             <div className="container">
                 <nav>
                     <ul>
-                        <li>
-                            <a href="">Nuur</a>
-                        </li>
+                       
                         {categories.map((cat)=>(
 
                         <li key={cat.id}>
                             <a href="">{cat.name}</a>
                         </li>
                         ))}
-                        <li>
-                            <a href="">Urlag</a>
-                        </li>
-                        <li>
-                            <a href="">Niigem</a>
-                        </li>
+                       
                     </ul>
                 </nav>
             </div>
