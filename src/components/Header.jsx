@@ -1,48 +1,62 @@
-import { useEffect } from "react"
-import { useState } from "react"
-import { FaSearch} from "react-icons/fa"
+import { Toast } from "bootstrap";
+import { useEffect } from "react";
+import { useState } from "react";
+import { FaSearch } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
-export default function Header(){
-    const [categories,setCategories] =useState([])
-    useEffect(()=>{
-        fetch('https://demo-api-one.vercel.app/api/categories')
-        .then((res)=> res.json())
-        .then((data)=>{
-            setCategories(data.body)
-        })
-
-    },[])
-    return(<>
-     <header>
-          <div className="header-top">
+export default function Header() {
+  const [categories, setCategories] = useState([]);
+  useEffect(() => {
+    fetch("https://demo-api-one.vercel.app/api/categories")
+      .then((res) => res.json())
+      .then((data) => {
+        setCategories(data.body);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+  return (
+    <>
+      <header>
+        <div className="header-top">
           <div className="container">
-           <div className="d-flex justify-content-between">
-                <div>
-                    <a className="brand" href="">My blog</a>
+            <div className="d-flex justify-content-between">
+              <div>
+                <a className="brand" href="">
+                  My blog
+                </a>
+              </div>
+              <div>
+                <div className="search-btn">
+                  <FaSearch />
                 </div>
-                <div>
-                   <div className="search-btn">
-                    <FaSearch/>
-                   </div>
-                </div>
+              </div>
             </div>
-           </div>
           </div>
-          <div className="header-bottom">
-            <div className="container">
-                <nav>
-                    <ul>
-                       
-                        {categories.map((cat)=>(
+        </div>
+        <div className="header-bottom">
+          <div className="container">
+            <nav>
+             
+              
+              <ul>
 
-                        <li key={cat.id}>
-                            <a href="">{cat.name}</a>
-                        </li>
-                        ))}
-                       
-                    </ul>
-                </nav>
-            </div>
+                {categories.map((cat) => (
+                  <li key={cat.id}>
+                    <a href="">{cat.name}</a>
+                  </li>
+                ))}
+                <li>
+                  <Link to={'chartscreen'}>
+                    chartscreen
+                  </Link>
+                </li>
+              </ul>
+            </nav>
           </div>
-        </header></>)
+        </div>
+      </header>
+    </>
+  );
 }

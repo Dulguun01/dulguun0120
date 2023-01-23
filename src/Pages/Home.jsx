@@ -1,35 +1,35 @@
-import Card from "../components/Card"
+import { useEffect, useState } from "react";
+import Card from "../components/Card";
+import Articles from "./Articles";
 
-export default function Home(){
-    const articles=[{
-        image:'https://resource.market.sodonsolution.org/olz/product/2019/11/28/r8jjhfr4uqt7oqjg/imageform_m.jpg',
-        title:"wdauhudjawudhuawu"
-    },{
-        image:'https://resource.market.sodonsolution.org/olz/product/2019/11/28/r8jjhfr4uqt7oqjg/imageform_m.jpg',
-        title:"wdauhudjawudhuawu"
-    },{
-        image:'https://resource.market.sodonsolution.org/olz/product/2019/11/28/r8jjhfr4uqt7oqjg/imageform_m.jpg',
-        title:"wdauhudjawudhuawu"
-    }]
-    return(
-        <>
-        <main>
-            <div className="container">
-                <div className="row">
-                    {articles.map((article)=>(
 
-                    <div className="col-md-3 col-sm-6 col-12">
-                        <Card title={article.title} image={article.image} />
-                        
 
-                    </div>
-                    ))}
-                </div>
-            </div>
-        </main>
-        
-       
+export default function Home() {
+  const [categories, setCategories] = useState([]);
+  useEffect(() => {
+    fetch("https://demo-api-one.vercel.app/api/articles")
+      .then((res) => res.json())
+      .then((data) => {
+        setCategories(data.body);
+      });
+  }, []);
 
-        </>
-    )
+  return (
+    <>
+      <main>
+        <div className="container">
+          <div className="row">
+            {categories.map((article,index) => (
+              <div className="col-md-3 col-sm-6 col-12" key={index}>
+                
+                <Card title={article.name} image={article.imageUrl} id={article.id}
+                articleId={article.id}/>
+             
+              </div>
+            ))}
+          </div>
+        </div>
+      </main>
+    </>
+  );
 }
