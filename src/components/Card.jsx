@@ -1,16 +1,10 @@
 import { Link } from "react-router-dom";
 
 export default function Card({ image, title ,index,articleId}) {
-  function clickBtn(ind){
-    if(index===ind)
-    return
-  }
+
   return (
 
-    <Link onClick={()=>{
-      clickBtn()
-
-    }} to={"/articles/"+articleId}>
+    <Link  to={"/articles/"+articleId}>
       <div className="card" >
         <div className="card-img">
           <img src={image} />

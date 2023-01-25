@@ -1,20 +1,15 @@
-import { Toast } from "bootstrap";
 import { useEffect } from "react";
 import { useState } from "react";
-import { FaSearch } from "react-icons/fa";
+import SeachIcon from "../Icons/SearchIcons"
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 export default function Header() {
   const [categories, setCategories] = useState([]);
   useEffect(() => {
-    fetch("https://demo-api-one.vercel.app/api/categories")
-      .then((res) => res.json())
-      .then((data) => {
-        setCategories(data.body);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    axios.get("http://localhost:8000/categories").then((res) => {
+      setCategories(res.data);
+    });
   }, []);
   return (
     <>
@@ -23,14 +18,21 @@ export default function Header() {
           <div className="container">
             <div className="d-flex justify-content-between">
               <div>
-                <a className="brand" href="">
+                <Link to={"/"} className="brand" >
                   My blog
-                </a>
+                </Link>
               </div>
               <div>
-                <div className="search-btn">
-                  <FaSearch />
-                </div>
+              <form className="position-relative" action="">
+            <input
+              type="text"
+              className="form-control search-input"
+              placeholder="Search Medium"
+            />
+            <button className="btn search-button">
+              <SeachIcon />
+            </button>
+          </form>
               </div>
             </div>
           </div>
@@ -38,19 +40,14 @@ export default function Header() {
         <div className="header-bottom">
           <div className="container">
             <nav>
-             
-              
               <ul>
-
                 {categories.map((cat) => (
                   <li key={cat.id}>
                     <a href="">{cat.name}</a>
                   </li>
                 ))}
                 <li>
-                  <Link to={'chartscreen'}>
-                    chartscreen
-                  </Link>
+                  <Link to={"chartscreen"}>chartscreen</Link>
                 </li>
               </ul>
             </nav>
